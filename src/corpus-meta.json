@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "grammar": 1000,
+  "levels": [
+    "A1",
+    "A2",
+    "B1",
+    "B2"
+  ],
+  "templates": 40,
+  "method": {
+    "fr": "1 000 exercices issus de 40 modèles grammaticaux et de variantes lexicales. Les niveaux sont pédagogiques et indicatifs, non certifiés.",
+    "ar": "1000 تمرين مبني على 40 نموذجًا نحويًا وبدائل معجمية. تصنيف المستويات تعليمي تقريبي وليس اعتمادًا رسميًا."
+  }
+}
