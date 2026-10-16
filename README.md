@@ -13,7 +13,7 @@ A free Arabic–French learning experience that connects grammar, conversation a
 ![PWA](https://img.shields.io/badge/PWA-installable-526b45)
 ![No paid APIs](https://img.shields.io/badge/paid_APIs-none-245b35)
 
-![ParleQuest desktop interface](docs/screenshots/desktop.png)
+![ParleQuest desktop interface](docs/screenshots/desktop-blue-red.jpg)
 
 </div>
 
@@ -22,6 +22,10 @@ A free Arabic–French learning experience that connects grammar, conversation a
 Knowing a rule and using it in a real conversation are different skills. ParleQuest brings both into one browser-based learning space: notice an error, understand the feedback, choose a response, and see what happens next.
 
 The app is designed for learners who benefit from Arabic guidance while practising French. It works without an account or a paid API, stores progress on the learner’s device, and can be added to the home screen where the browser supports installation.
+
+## Daily practice update
+
+A daily three-part challenge, a scheduled grammar review notebook, a blue/red identity and nine additional contextual decisions are now included. [Scope and validation](docs/RELEASE-DAILY-PRACTICE.md).
 
 ## Three ways to practise
 
@@ -96,7 +100,7 @@ There is no application backend or account system. The display name, chosen leve
 
 ## Quality and limits
 
-The current suite contains **20 automated checks**, including exact corpus counts, unique questions, level distribution, graph termination, profile validation and simulated PWA caching. The production UI was also tested in an isolated browser at desktop and mobile widths; installation events and storage were mocked in that test. Live-site checks covered onboarding, level selection, correction, saved progress and scenario filters.
+The current suite contains **23 automated checks**, including exact corpus counts, unique questions, level distribution, graph termination, profile validation and simulated PWA caching. The production UI was also tested in an isolated browser at desktop and mobile widths; installation events and storage were mocked in that test. Live-site checks covered onboarding, level selection, correction, saved progress and scenario filters.
 
 Installation on physical devices and effectiveness with learners have not been certified. A FLE teacher’s review and learner testing remain part of the next phase. See [content and validation](docs/CONTENT-AND-VALIDATION.md) and the [French academic brief](docs/ACADEMIC-FR.md).
 

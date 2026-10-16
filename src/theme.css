@@ -1,0 +1,48 @@
+/* ParleQuest — French blue / vermilion visual study */
+:root{color:#182d52;background:#f7f8fc}
+aside{background:#fff;border-color:#e1e6f1}
+.logo{background:#183f91}.logo span{color:#fff}.branddot{color:#e34450}
+.aside-label,header>span,.hero-note,.muted,.aside-bottom p{color:#65738c}
+nav button.active{background:#e9effc;color:#183f91;box-shadow:inset 3px 0 #e34450}
+html[dir=rtl] nav button.active{box-shadow:inset -3px 0 #e34450}
+button{border-color:#d9e0ed;color:inherit}
+button:hover{background:#edf2fd}
+.primary{background:#cf3545;border-color:#cf3545;color:#fff;box-shadow:0 5px 14px #cf35451c}
+.primary:hover{background:#b72535;border-color:#b72535}
+.selected{background:#183f91!important;color:#fff!important}
+.eyebrow{color:#3c5b91}
+h1 em{color:#315db1}
+p{color:#596b87}
+.strip{border-color:#dce3f1;color:#526887}
+header{border-color:#dce3f1}
+.green,.panel.green{background:#edf2fc}
+.peach{background:#fceef0}
+.lavender{background:#f0effa}
+.module{border-color:#dde3ef;box-shadow:0 7px 20px #223c6705}
+.module:hover{background:#e6edfc;border-color:#9db3df}
+.module-top>span:last-child,.module footer,.module footer span{color:#31558f}
+.module footer{border-color:#233d6c1a}
+.module-icon{background:#ffffffb3}
+.bottom-banner{background:#eaf0fb;border-inline-start:4px solid #cf3545}
+.profile>b{background:#eaf0fc;color:#183f91}
+.hero-world{background:#e8eefb;border-color:#fff;box-shadow:0 15px 40px #183f9112;position:relative}
+.hero-world>span{color:#d63849}.hero-world>b{color:#193f8e}
+.hero-world p,.hero-world>div{color:#506b9b}.hero-world small{color:#c13343}
+.panel{background:#fff;border-color:#dfe5f1}
+.stats article,.context-card{background:#edf2fc}
+.badge{background:#eaf0fc;color:#315a9c}
+.level-options button{background:#f2f5fc}
+.sentence{background:#f1f4fb;color:#193b70}
+.feedback.good{background:#e8f2ee;color:#245342}
+.feedback.review{background:#fff0e8;color:#873f27}
+.arabic-help{color:#536887}
+.context-card>span,.resource-link{color:#3158a0}
+input,select{border-color:#adbbd5;color:#203b66}
+.modal-backdrop{background:#142c59bd}
+.modal{background:#fff}
+.site-footer{color:#74819a}
+progress{accent-color:#2853a5}
+:focus-visible{outline:3px solid #345fac}
+
+.practice-hub{margin-top:28px}.daily-tasks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.daily-tasks button{display:flex;gap:12px;align-items:center;text-align:start;background:#edf2fc;min-height:85px}.daily-tasks b{font-size:24px;color:#cf3545}.daily-tasks small{display:block;margin-top:7px;color:#607398}.review-summary{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #dce3f1;padding-top:14px}.review-summary small{color:#607398;font-size:11px}.practice-session{border-top:1px solid #dce3f1;margin-top:24px;padding-top:15px}.practice-session h3{line-height:1.8}.practice-session label{line-height:1.8}.practice-hub progress{margin-top:8px}
+@media(max-width:760px){.daily-tasks{grid-template-columns:1fr}.review-summary{flex-direction:column;align-items:stretch}.practice-hub{padding:20px}.daily-tasks button{min-height:65px}}
