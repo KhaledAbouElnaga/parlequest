@@ -22,8 +22,9 @@ Do not store tokens in `.env`, source files, screenshots, issues or commits. The
 
 ## Current status
 
-The workflow is prepared. Production automation is **not active until the owner configures the secrets and enable variable**. Successful source publication or a passing verification job alone does not prove automatic deployment is enabled. The current Cloudflare site continues running independently.
+Production automation is **active**. Both repository secrets and the enable variable are configured. Build/test and production deployment succeeded on 16 October 2026: [verified run](https://github.com/KhaledAbouElnaga/parlequest/actions/runs/38924395282). The account-restricted Pages Edit token expires on **14 January 2027** (90 days). Before expiry, create a replacement with the same scope, update the CLOUDFLARE_API_TOKEN Actions secret, verify a deployment, then revoke the old token. Expiry stops future deployments; it does not take down the already published site.
 
 ## Future development
 
 Create a branch, implement the change, run `npm run build` and `npm test`, review a pull request, then merge to `main`. Once production automation has been enabled, a successful main build updates the existing site. LinkedIn is for showcasing the project and announcing releases; it is not a source-code deployment service.
+

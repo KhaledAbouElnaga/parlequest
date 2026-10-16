@@ -105,9 +105,9 @@ Installation on physical devices and effectiveness with learners have not been c
 The live site is hosted on **Cloudflare Pages**. The existing project was created through Direct Upload. This repository includes:
 
 - automatic build and test checks on pushes and pull requests;
-- an optional deployment job that publishes successful `main` builds to the existing `parlequest` Pages project once its credentials and enable flag are configured.
+- an enabled deployment job that publishes successful `main` builds to the existing `parlequest` Pages project.
 
-Creating the workflow alone does **not** connect production. See [deployment setup](docs/DEPLOYMENT.md) for the exact enablement steps and status. Cloudflare tokens belong in GitHub Actions secrets, never in source files.
+Production deployment was verified successfully on 16 October 2026. The restricted deployment token expires on **14 January 2027** and must be rotated before then. See [deployment setup](docs/DEPLOYMENT.md) for configuration and rotation. Cloudflare tokens belong in GitHub Actions secrets, never in source files.
 
 ## Roadmap
 
@@ -121,3 +121,4 @@ Creating the workflow alone does **not** connect production. See [deployment set
 Ideas, language corrections and bug reports are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before making changes, especially the guidance on linguistic accuracy, cultural nuance and learner data.
 
 Maintained by [Khaled AbouElnaga](https://github.com/KhaledAbouElnaga).
+
