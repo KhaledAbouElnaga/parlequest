@@ -15,6 +15,7 @@ type Trail={node:string;choice:number};type Run={contextId:string;level:Level;mo
 type InstallEvent=Event&{prompt:()=>Promise<void>;userChoice:Promise<{outcome:'accepted'|'dismissed'}>};
 const diagnostic=levels.flatMap(l=>{const pool=bank.filter(q=>q.level===l);return [0,51,102,153,204].map(i=>pool[i]);});
 function App(){
+ useEffect(()=>{const previous=history.scrollRestoration;history.scrollRestoration='manual';const top=()=>window.scrollTo(0,0);top();window.addEventListener('pageshow',top);return()=>{history.scrollRestoration=previous;window.removeEventListener('pageshow',top);};},[]);
  const [lang,setLang]=useState<'fr'|'ar'>(()=>{try{return localStorage.getItem('pq-language')==='ar'?'ar':'fr';}catch{return 'fr';}});
  const t=(fr:string,ar:string)=>lang==='ar'?ar:fr;
  const [profile,setProfile]=useState<Profile>(()=>{try{return loadProfile(localStorage) as Profile;}catch{return {version:3,name:'',levels:{grammar:null,dialogue:null,culture:null},diagnostic:null};}});
