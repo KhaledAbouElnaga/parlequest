@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "node scripts/generate-content.mjs && tsc && vite build && node scripts/offline.mjs",
+    "build": "node scripts/generate-content.mjs && tsc && vite build && node scripts/secure-build.mjs",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test tests/*.test.mjs",
     "generate": "node scripts/generate-content.mjs"

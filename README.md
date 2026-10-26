@@ -1,128 +1,52 @@
-<div align="center">
-
 # ParleQuest
 ### Apprendre le français autrement
 
-A free Arabic–French learning experience that connects grammar, conversation and everyday communication.
+A French-learning web app with French and Arabic interfaces, authored branching conversations, grammar exercises and cultural decisions.
 
-[**Try the live app →**](https://parlequest.pages.dev/) · [العربية](docs/README-AR.md) · [Academic overview · Français](docs/ACADEMIC-FR.md) · [Content & validation](docs/CONTENT-AND-VALIDATION.md)
+[Open the protected app](https://parlequest.pages.dev/) · [Access-control deployment](docs/ACCESS-CONTROL.md) · [Academic overview](docs/ACADEMIC-FR.md)
 
-![React](https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6?logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-7-646cff?logo=vite&logoColor=white)
-![PWA](https://img.shields.io/badge/PWA-installable-526b45)
-![No paid APIs](https://img.shields.io/badge/paid_APIs-none-245b35)
+![ParleQuest interface](docs/screenshots/desktop-blue-red.jpg)
 
-![ParleQuest desktop interface](docs/screenshots/desktop-blue-red.jpg)
+## Access
 
-</div>
+The hosted app is becoming invite-only. Approved users sign in with a username and password. New users can request access; the owner approves, rejects or suspends them in `/admin`. Single-use activation links let invited users set their own passwords. Usernames resembling email addresses do not create mailboxes. The current version does not send email notifications or password-reset emails.
 
-## Why ParleQuest?
+Every application route and exercise bundle passes through a Cloudflare Pages authorization worker, backed by a dedicated D1 database. Production must use **Fail closed**, a server-only encrypted `AUTH_PEPPER`, and the `AUTH_DB` binding. Missing configuration denies access. Do not publish a static-only build or roll back to an unauthenticated deployment. Older public deployments must be removed after the protected version is verified.
 
-Knowing a rule and using it in a real conversation are different skills. ParleQuest brings both into one browser-based learning space: notice an error, understand the feedback, choose a response, and see what happens next.
+There are no production credentials, identities or activation links in this repository. The source remains public; site access controls cannot retract previously published source or downloaded copies.
 
-The app is designed for learners who benefit from Arabic guidance while practising French. It works without an account or a paid API, stores progress on the learner’s device, and can be added to the home screen where the browser supports installation.
+## Learning features
 
-## Daily practice update
+- Parle Vrai: authored branching conversations with feedback and repair paths.
+- ErreurLab: 1,000 exercises (40 grammar models × 25 lexical variants), 250 per level, A1–B2.
+- CultureQuest: 1,000 contextual locations (25 settings × 40 cities), based on shared authored templates.
+- Daily grammar, dialogue and culture challenge with saved completion.
+- Scheduled grammar review after 1, 3, 7 and 14 days following successful reviews; errors return after 10 minutes.
+- Nine additional contextual decisions for university, café and railway-station scenarios at A2–B2.
+- Indicative 20-question grammar diagnostic and links to official external practice resources.
 
-A daily three-part challenge, a scheduled grammar review notebook, a blue/red identity and nine additional contextual decisions are now included. [Scope and validation](docs/RELEASE-DAILY-PRACTICE.md).
+This is not generative AI. Level labels are pedagogical estimates, not certification. Institutions, references and appointment details are fictional. External FLE teacher review remains pending.
 
-## Three ways to practise
+## Progress and connectivity
 
-| Experience | What learners do |
-| --- | --- |
-| **Parle Vrai** | Follow branching conversations, choose replies and repair misunderstandings. |
-| **ErreurLab** | Identify a grammatical error, write the correction and read a French/Arabic explanation. |
-| **CultureQuest** | Make contextual communication decisions in administrative, educational, workplace and everyday settings. |
+Progress is stored in browser storage, separately for each signed-in account. It does not automatically sync between devices. Old anonymous progress is not silently assigned to a new user. Private access requires connectivity: the earlier offline cache is retired to prevent it from bypassing authentication. The app can still be added to the home screen where the browser supports it.
 
-Each experience has an independent **A1, A2, B1 or B2** level selector. A short internal grammar check can suggest a starting path. A resources section links to TV5MONDE practice and official DELF sample-paper pages.
+## Development and deployment
 
-## What is included?
-
-- **1,000 grammar exercises:** 250 per level, built from **40 grammatical models × 25 lexical variants**.
-- **1,000 contextual locations:** **25 setting types × 40 French cities**, with shared scenario templates and context-specific comprehension details.
-- **6–9 main decisions per scenario**, depending on level, with additional repair branches.
-- Arabic and French interfaces, RTL/LTR layouts and bilingual learning feedback.
-- A first-visit name prompt, local progress, first-attempt points and targeted revision suggestions.
-- Repeatable practice sessions, searchable scenario libraries and a JSON progress export.
-- A PWA manifest, icons, offline asset caching after an initial successful load, and device-specific installation guidance.
-
-**Content is finite and transparent.** Unlimited sessions mean repeatable practice, not infinitely many unique questions. Cities are real; institutions, rooms, references and appointment details in the simulations are fictional. The level labels are pedagogical estimates, not validated CEFR certification. The internal check covers grammar only.
-
-**This is not generative AI.** Conversations are authored decision graphs, corrections use accepted answers, and revision suggestions use recorded error categories. There is no speech recording or audio feature in this release.
-
-## Run locally
-
-Use **Node.js 22.12+** and npm:
+Use Node.js 22.13+ (Node 24 is also supported):
 
 ```sh
-git clone https://github.com/KhaledAbouElnaga/parlequest.git
-cd parlequest
 npm ci
-npm run dev
-```
-
-Build and verify the complete app:
-
-```sh
 npm run build
 npm test
-npm run preview
 ```
 
-The build regenerates the question bank, runs strict TypeScript checking, builds the static app, and generates the service worker. Run the build before the tests: PWA checks inspect the generated files in `dist/`.
+The build generates the exercise corpus, checks TypeScript, builds the UI and installs the advanced-mode authorization worker for every route. Tests use a disposable in-memory SQLite database, not production data. Vite's static preview alone does not emulate authentication; use Wrangler Pages with a local D1 binding for authenticated development. See [the access deployment guide](docs/ACCESS-CONTROL.md).
 
-No `.env` file or API key is needed to run the application. An internet connection is needed to install dependencies; the deployed application does not call an AI or translation service.
+GitHub Actions verifies main and pull requests. Successful main builds deploy the existing Cloudflare Pages project when its enable variable and deployment secrets are configured. The deployment token expires on **14 January 2027** and must be rotated before expiry.
 
-## Architecture
+The current suite contains **29 automated checks**, including authorization, role enforcement, pending accounts, invitation expiry/reuse, CSRF, credential overwrite prevention, revocation, rate limiting, corpus counts, scenario termination and review scheduling.
 
-```text
-src/
-  main.tsx                 Application, navigation, profiles and installation UI
-  world.ts                 Cities, setting templates and level-specific dialogue graphs
-  learning.js              Profiles, next-item selection and internal diagnostic
-  engine.js                Answer normalization, first-attempt scoring and persistence
-  grammar-bank.json        Generated, inspectable exercise bank
-scripts/
-  generate-content.mjs     Source models and lexical data for the 1,000 exercises
-  offline.mjs              Production offline-cache generation
-tests/                     Scoring, corpus, graphs, localization and PWA checks
-public/                    Manifest and application icons
-docs/                      Arabic guide, academic framing, deployment and screenshots
-.github/workflows/         Build/test checks and optional Cloudflare deployment
-```
-
-Legacy content/localization fixtures are retained in `src/` and tested as regression fixtures; the active v3 application uses `world.ts` and the generated grammar bank.
-
-## Privacy and progress
-
-There is no application backend or account system. The display name, chosen levels, scores and active run stay in the browser’s local storage. They do **not** automatically sync between devices. Clearing site data removes them. Do not enter real medical, immigration, financial or other sensitive information into the learning scenarios.
-
-## Quality and limits
-
-The current suite contains **23 automated checks**, including exact corpus counts, unique questions, level distribution, graph termination, profile validation and simulated PWA caching. The production UI was also tested in an isolated browser at desktop and mobile widths; installation events and storage were mocked in that test. Live-site checks covered onboarding, level selection, correction, saved progress and scenario filters.
-
-Installation on physical devices and effectiveness with learners have not been certified. A FLE teacher’s review and learner testing remain part of the next phase. See [content and validation](docs/CONTENT-AND-VALIDATION.md) and the [French academic brief](docs/ACADEMIC-FR.md).
-
-## Deployment and future updates
-
-The live site is hosted on **Cloudflare Pages**. The existing project was created through Direct Upload. This repository includes:
-
-- automatic build and test checks on pushes and pull requests;
-- an enabled deployment job that publishes successful `main` builds to the existing `parlequest` Pages project.
-
-Production deployment was verified successfully on 16 October 2026. The restricted deployment token expires on **14 January 2027** and must be rotated before then. See [deployment setup](docs/DEPLOYMENT.md) for configuration and rotation. Cloudflare tokens belong in GitHub Actions secrets, never in source files.
-
-## Roadmap
-
-- Teacher review, item calibration and broader learner testing.
-- More independently authored scenario families and deeper level differentiation.
-- Accessibility and physical-device PWA testing.
-- Optional accounts, cross-device progress and a teacher dashboard.
-
-## Contributing
-
-Ideas, language corrections and bug reports are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before making changes, especially the guidance on linguistic accuracy, cultural nuance and learner data.
+The older Arabic user guide predates private access; its anonymous/offline instructions should not be redistributed as current instructions.
 
 Maintained by [Khaled AbouElnaga](https://github.com/KhaledAbouElnaga).
-

@@ -1,3 +1,4 @@
+import {accountStorage as storage} from './account';
 import React,{useEffect,useState} from 'react';
 import {bi,buildScenario,contexts,type Level} from './world';
 import {isCorrect} from './engine.js';
@@ -5,14 +6,14 @@ import {dayKey,dailyIndex,nextReview,reviewQueue} from './practice.js';
 type Q={id:string;level:Level;sentence:string;target:string;answers:string[];explanation:{fr:string;ar:string}};
 type Review=Record<string,{streak:number;due:number;lastGood:boolean}>;
 type Daily={day:string;levels:Record<string,Level>;done:string[]};
-const read=(key:string,fallback:any)=>{try{return JSON.parse(localStorage.getItem(key)||'null')||fallback;}catch{return fallback;}};
+const read=(key:string,fallback:any)=>{try{return JSON.parse(storage.getItem(key)||'null')||fallback;}catch{return fallback;}};
 export default function PracticeHub({bank,results,chosen,lang}:{bank:Q[];results:Record<string,{good:boolean}>;chosen:Record<string,Level|null>;lang:'fr'|'ar'}){
  const t=(fr:string,ar:string)=>lang==='fr'?fr:ar;
  const today=dayKey();
  const [daily,setDaily]=useState<Daily>(()=>{const saved=read('pq-daily-v1',null);return saved?.day===today&&Array.isArray(saved.done)&&['grammar','dialogue','culture'].every(m=>['A1','A2','B1','B2'].includes(saved.levels?.[m]))?saved:{day:today,levels:{grammar:chosen.grammar||'A1',dialogue:chosen.dialogue||'A1',culture:chosen.culture||'A1'},done:[]};});
  const [reviews,setReviews]=useState<Review>(()=>{const saved=read('pq-reviews-v1',{});return Object.fromEntries(Object.entries(saved).filter(([,r])=>r&&typeof r==='object'&&Number.isFinite((r as any).due)&&Number.isInteger((r as any).streak))) as Review;});
  const [storageError,setStorageError]=useState(false);
- const persist=(key:string,value:unknown)=>{try{localStorage.setItem(key,JSON.stringify(value));}catch{setStorageError(true);}};
+ const persist=(key:string,value:unknown)=>{try{storage.setItem(key,JSON.stringify(value));}catch{setStorageError(true);}};
  useEffect(()=>{persist('pq-daily-v1',daily);},[daily]);
  const [active,setActive]=useState<'grammar'|'dialogue'|'culture'|'review'|null>(null);const [answer,setAnswer]=useState('');const [feedback,setFeedback]=useState('');const [correct,setCorrect]=useState(false);const [node,setNode]=useState('s0');const [notes,setNotes]=useState<string[]>([]);const [reviewId,setReviewId]=useState('');const [noteGood,setNoteGood]=useState(true);
  const queue=reviewQueue(bank,results,reviews) as Q[];

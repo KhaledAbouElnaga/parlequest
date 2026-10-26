@@ -7,3 +7,7 @@ dist/
 .DS_Store
 .openai/
 .sites-runtime/
+
+*PRIVATE*
+*secret*json
+
